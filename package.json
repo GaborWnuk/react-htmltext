@@ -1,7 +1,7 @@
 {
   "name": "react-htmltext",
   "version": "0.37.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "jest --coverage --forceExit",
     "flow": "./node_modules/.bin/flow; test $? -eq 0 -o $? -eq 2"
