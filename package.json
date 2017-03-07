@@ -1,0 +1,29 @@
+{
+  "name": "react-htmltext",
+  "version": "0.37.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --coverage --forceExit",
+    "flow": "./node_modules/.bin/flow; test $? -eq 0 -o $? -eq 2"
+  },
+  "dependencies": {
+    "events": "^1.1.1",
+    "htmlparser2": "^3.9.2",
+    "react": "^15.4.2",
+    "react-native": "^0.42.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^19.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "flow-bin": "^0.41.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^19.0.2",
+    "react-test-renderer": "~15.4.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "verbose": true,
+    "testRegex": "/__tests__/(.*)test_([a-z_.-]+)\\.js$"
+  }
+}
