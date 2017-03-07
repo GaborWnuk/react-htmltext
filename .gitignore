@@ -49,5 +49,3 @@ android/app/libs
 
 # coverage
 coverage/
-
-yarn.lock
