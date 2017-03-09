@@ -15,6 +15,10 @@ It was written in about 2 hours. Can it be prettier? Sure. Does it fit our needs
 ## How does it work?
 
 ```javascript
+//(...)
+import HTMLText from "react-htmltext";
+//(...)
+
 render() {
   const html = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
     'sed do eiusmod tempor <a href="">incididunt</a> ut labore et dolore magna aliqua.</p>' +
