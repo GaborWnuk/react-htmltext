@@ -3,7 +3,7 @@
 
 HTML to Text component for React (Native)
 
-![Preview](https://raw.githubusercontent.com/GaborWnuk/react-htmltext/master/images/example.png)
+![Preview](https://raw.githubusercontent.com/GaborWnuk/react-htmltext/master/images/preview.png)
 
 ## What is it for?
 Main problem we've faced during development was how unreliable WebView was in Android and iOS. In a matter of fact it was slow and on Android - unusable, due to no way we could measure content height properly.
