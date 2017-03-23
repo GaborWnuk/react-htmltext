@@ -1,5 +1,5 @@
 # react-htmltext
-[![Build Status](https://travis-ci.org/GaborWnuk/react-htmltext.svg?branch=master)](https://travis-ci.org/GaborWnuk/react-htmltext)[![View package on npm](https://img.shields.io/npm/v/react-htmltext.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/react-htmltext) [![npm](https://img.shields.io/npm/dm/react-htmltext.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/react-htmltext)
+[![Build Status](https://travis-ci.org/GaborWnuk/react-htmltext.svg?branch=master)](https://travis-ci.org/GaborWnuk/react-htmltext) [![View package on npm](https://img.shields.io/npm/v/react-htmltext.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/react-htmltext) [![npm](https://img.shields.io/npm/dm/react-htmltext.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/react-htmltext)
 
 HTML to Text component for React (Native)
 

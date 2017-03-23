@@ -1,11 +1,16 @@
 {
   "name": "react-htmltext",
-  "version": "0.37.4",
-  "keywords": ["react", "html", "text", "native"],
+  "version": "0.37.5",
+  "keywords": [
+    "react",
+    "html",
+    "text",
+    "native"
+  ],
   "homepage": "https://github.com/GaborWnuk/react-htmltext",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/GaborWnuk/react-htmltext.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GaborWnuk/react-htmltext.git"
   },
   "private": false,
   "scripts": {
