@@ -1,6 +1,6 @@
 {
   "name": "react-htmltext",
-  "version": "0.37.5",
+  "version": "0.38.0",
   "keywords": [
     "react",
     "html",
@@ -19,9 +19,7 @@
   },
   "dependencies": {
     "events": "^1.1.1",
-    "htmlparser2": "^3.9.2",
-    "react": "^15.4.2",
-    "react-native": "^0.42.0"
+    "htmlparser2": "^3.9.2"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
