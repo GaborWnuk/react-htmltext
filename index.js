@@ -9,6 +9,8 @@ import { addons, View, Text, StyleSheet } from 'react-native';
 import entities from 'entities';
 import htmlparser from 'htmlparser2';
 
+import InstagramEmbed from 'react-native-instagram-embed';
+
 const paragraph = '\n\n';
 
 const baseFontStyle = {
@@ -38,12 +40,12 @@ export default class HTMLText extends PureComponent {
     }),
   };
 
-  state = {
-    element: null,
-  };
-
   constructor() {
     super();
+
+    this.state = {
+      element: null,
+    };
 
     this._mounted = false;
     this._rendering = false;
@@ -66,6 +68,10 @@ export default class HTMLText extends PureComponent {
   componentWillUnmount() {
     this._mounted = false;
   }
+
+  _onLayout = layout => {
+    this.setState({ width: layout.nativeEvent.layout.width });
+  };
 
   _htmlToComponent(done) {
     const handler = new htmlparser.DomHandler((error, dom) => {
@@ -117,6 +123,18 @@ export default class HTMLText extends PureComponent {
           };
         }
 
+        let instagramRegex = /instagram\.com\/p\/([a-zA-Z0-9]+)/g;
+        if (instagramRegex.test(node.attribs.href)) {
+          const { width } = this.props.style;
+
+          return (
+            <InstagramEmbed
+              url={node.attribs.href}
+              style={[{ height: 240 }, !!width ? { width: width } : {}]}
+            />
+          );
+        }
+
         return (
           <Text key={index} onPress={callback}>
             {this._domToElement(node.children, node)}
@@ -149,7 +167,14 @@ export default class HTMLText extends PureComponent {
 
   render() {
     if (this.state.element) {
-      return <Text children={this.state.element} />;
+      const { style } = this.props;
+      return (
+        <Text
+          children={this.state.element}
+          onLayout={this._onLayout}
+          style={style}
+        />
+      );
     }
 
     return <Text />;
