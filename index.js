@@ -5,7 +5,7 @@
  */
 
 import React, { PureComponent } from 'react';
-import { addons, View, Text, StyleSheet } from 'react-native';
+import { addons, View, Text, StyleSheet, Platform } from 'react-native';
 import entities from 'entities';
 import htmlparser from 'htmlparser2';
 
@@ -124,7 +124,10 @@ export default class HTMLText extends PureComponent {
         }
 
         let instagramRegex = /instagram\.com\/p\/([a-zA-Z0-9]+)/g;
-        if (instagramRegex.test(node.attribs.href)) {
+        if (
+          Platform.OS != 'android' &&
+          instagramRegex.test(node.attribs.href)
+        ) {
           const { width } = this.props.style;
 
           return (
