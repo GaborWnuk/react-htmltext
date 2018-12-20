@@ -20,16 +20,20 @@ const baseFontStyle = {
 };
 const paragraphStyle = { ...baseFontStyle };
 const boldStyle = { ...baseFontStyle, fontWeight: '500' };
+const centerStyle = { ...baseFontStyle, textAlign: 'center' };
 const italicStyle = { ...baseFontStyle, fontStyle: 'italic' };
 const codeStyle = { ...baseFontStyle, fontFamily: 'Menlo' };
 const hrefStyle = { ...baseFontStyle, fontWeight: '500', color: '#007AFF' };
 
 export default class HTMLText extends PureComponent {
   _mounted: boolean;
+
   _rendering: boolean;
+
   static defaultProps = {
     styles: StyleSheet.create({
       p: paragraphStyle,
+      center: centerStyle,
       b: boldStyle,
       strong: boldStyle,
       i: italicStyle,
@@ -69,7 +73,7 @@ export default class HTMLText extends PureComponent {
     this._mounted = false;
   }
 
-  _onLayout = layout => {
+  _onLayout = (layout) => {
     this.setState({ width: layout.nativeEvent.layout.width });
   };
 
@@ -95,17 +99,14 @@ export default class HTMLText extends PureComponent {
     return dom.map((node, index, list) => {
       if (node.type == 'text') {
         return (
-          <Text
-            key={index}
-            style={parent ? this.props.styles[parent.name] : null}
-          >
+          <Text key={index} style={parent ? this.props.styles[parent.name] : null}>
             {entities.decodeHTML(node.data)}
           </Text>
         );
       }
 
       if (node.type == 'tag') {
-        var callback = null;
+        let callback = null;
 
         if (node.name == 'a' && node.attribs && node.attribs.href) {
           callback = () => {
@@ -114,28 +115,16 @@ export default class HTMLText extends PureComponent {
             if (this.props.onPress !== undefined) {
               this.props.onPress(url);
             } else {
-              console.warn(
-                'onPress callback is undefined. Touch on ' +
-                  url +
-                  " won't have any effect.",
-              );
+              console.warn(`onPress callback is undefined. Touch on ${url} won't have any effect.`);
             }
           };
         }
 
-        let instagramRegex = /instagram\.com\/p\/([a-zA-Z0-9]+)/g;
-        if (
-          Platform.OS != 'android' &&
-          instagramRegex.test(node.attribs.href)
-        ) {
+        const instagramRegex = /instagram\.com\/p\/([a-zA-Z0-9]+)/g;
+        if (Platform.OS != 'android' && instagramRegex.test(node.attribs.href)) {
           const { width } = this.props.style;
 
-          return (
-            <InstagramEmbed
-              url={node.attribs.href}
-              style={[{ height: 240 }, !!width ? { width: width } : {}]}
-            />
-          );
+          return <InstagramEmbed url={node.attribs.href} style={[{ height: 240 }, width ? { width } : {}]} />;
         }
 
         return (
@@ -163,7 +152,7 @@ export default class HTMLText extends PureComponent {
       }
 
       if (this._mounted) {
-        this.setState({ element: element });
+        this.setState({ element });
       }
     });
   }
@@ -171,13 +160,7 @@ export default class HTMLText extends PureComponent {
   render() {
     if (this.state.element) {
       const { style } = this.props;
-      return (
-        <Text
-          children={this.state.element}
-          onLayout={this._onLayout}
-          style={style}
-        />
-      );
+      return <Text children={this.state.element} onLayout={this._onLayout} style={style} />;
     }
 
     return <Text />;
