@@ -5,18 +5,16 @@
  */
 
 import React, { PureComponent } from 'react';
-import { addons, View, Text, StyleSheet, Platform } from 'react-native';
+import { addons, View, Text, StyleSheet, Platform, Image } from 'react-native';
 import entities from 'entities';
 import htmlparser from 'htmlparser2';
 
 import InstagramEmbed from 'react-native-instagram-embed';
 
-const paragraph = '\n\n';
-
 const baseFontStyle = {
   fontSize: 16,
   fontFamily: 'HelveticaNeue',
-  lineHeight: 22,
+  lineHeight: 22
 };
 const paragraphStyle = { ...baseFontStyle };
 const boldStyle = { ...baseFontStyle, fontWeight: '500' };
@@ -40,15 +38,15 @@ export default class HTMLText extends PureComponent {
       em: italicStyle,
       pre: codeStyle,
       code: codeStyle,
-      a: hrefStyle,
-    }),
+      a: hrefStyle
+    })
   };
 
   constructor() {
     super();
 
     this.state = {
-      element: null,
+      element: null
     };
 
     this._mounted = false;
@@ -73,7 +71,7 @@ export default class HTMLText extends PureComponent {
     this._mounted = false;
   }
 
-  _onLayout = (layout) => {
+  _onLayout = layout => {
     this.setState({ width: layout.nativeEvent.layout.width });
   };
 
@@ -127,10 +125,27 @@ export default class HTMLText extends PureComponent {
           return <InstagramEmbed url={node.attribs.href} style={[{ height: 240 }, width ? { width } : {}]} />;
         }
 
+        if (node.name == 'img') {
+          const { src, width, height } = node.attribs;
+          return (
+            <Image
+              source={{ uri: src }}
+              style={{
+                width: Number(width),
+                height: Number(height)
+              }}
+            />
+          );
+        }
+
+        console.tron.log(node);
         return (
-          <Text key={index} onPress={callback}>
+          <Text
+            key={index}
+            onPress={callback}
+            style={node.name == 'p' && index < list.length - 1 && node.children.length > 0 ? this.props.styles.p : null}
+          >
             {this._domToElement(node.children, node)}
-            {node.name == 'p' && index < list.length - 1 ? paragraph : null}
           </Text>
         );
       }
@@ -160,7 +175,7 @@ export default class HTMLText extends PureComponent {
   render() {
     if (this.state.element) {
       const { style } = this.props;
-      return <Text children={this.state.element} onLayout={this._onLayout} style={style} />;
+      return <View children={this.state.element} onLayout={this._onLayout} style={style} />;
     }
 
     return <Text />;
