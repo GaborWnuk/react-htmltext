@@ -14,7 +14,7 @@ import InstagramEmbed from 'react-native-instagram-embed';
 const baseFontStyle = {
   fontSize: 16,
   fontFamily: 'HelveticaNeue',
-  lineHeight: 22
+  lineHeight: 22,
 };
 const paragraphStyle = { ...baseFontStyle };
 const boldStyle = { ...baseFontStyle, fontWeight: '500' };
@@ -38,15 +38,15 @@ export default class HTMLText extends PureComponent {
       em: italicStyle,
       pre: codeStyle,
       code: codeStyle,
-      a: hrefStyle
-    })
+      a: hrefStyle,
+    }),
   };
 
   constructor() {
     super();
 
     this.state = {
-      element: null
+      element: null,
     };
 
     this._mounted = false;
@@ -97,7 +97,11 @@ export default class HTMLText extends PureComponent {
     return dom.map((node, index, list) => {
       if (node.type == 'text') {
         return (
-          <Text key={index} style={parent ? this.props.styles[parent.name] : null}>
+          <Text
+            key={index}
+            style={parent ? this.props.styles[parent.name] : null}
+            {...this.props.textProps}
+          >
             {entities.decodeHTML(node.data)}
           </Text>
         );
@@ -113,16 +117,26 @@ export default class HTMLText extends PureComponent {
             if (this.props.onPress !== undefined) {
               this.props.onPress(url);
             } else {
-              console.warn(`onPress callback is undefined. Touch on ${url} won't have any effect.`);
+              console.warn(
+                `onPress callback is undefined. Touch on ${url} won't have any effect.`,
+              );
             }
           };
         }
 
         const instagramRegex = /instagram\.com\/p\/([a-zA-Z0-9]+)/g;
-        if (Platform.OS != 'android' && instagramRegex.test(node.attribs.href)) {
+        if (
+          Platform.OS != 'android' &&
+          instagramRegex.test(node.attribs.href)
+        ) {
           const { width } = this.props.style;
 
-          return <InstagramEmbed url={node.attribs.href} style={[{ height: 240 }, width ? { width } : {}]} />;
+          return (
+            <InstagramEmbed
+              url={node.attribs.href}
+              style={[{ height: 240 }, width ? { width } : {}]}
+            />
+          );
         }
 
         if (node.name == 'img') {
@@ -132,7 +146,7 @@ export default class HTMLText extends PureComponent {
               source={{ uri: src }}
               style={{
                 width: Number(width),
-                height: Number(height)
+                height: Number(height),
               }}
             />
           );
@@ -143,7 +157,14 @@ export default class HTMLText extends PureComponent {
           <Text
             key={index}
             onPress={callback}
-            style={node.name == 'p' && index < list.length - 1 && node.children.length > 0 ? this.props.styles.p : null}
+            style={
+              node.name == 'p' &&
+              index < list.length - 1 &&
+              node.children.length > 0
+                ? this.props.styles.p
+                : null
+            }
+            {...this.props.textProps}
           >
             {this._domToElement(node.children, node)}
           </Text>
@@ -175,7 +196,13 @@ export default class HTMLText extends PureComponent {
   render() {
     if (this.state.element) {
       const { style } = this.props;
-      return <View children={this.state.element} onLayout={this._onLayout} style={style} />;
+      return (
+        <View
+          children={this.state.element}
+          onLayout={this._onLayout}
+          style={style}
+        />
+      );
     }
 
     return <Text />;
