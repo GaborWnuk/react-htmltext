@@ -22,6 +22,7 @@ const centerStyle = { ...baseFontStyle, textAlign: 'center' };
 const italicStyle = { ...baseFontStyle, fontStyle: 'italic' };
 const codeStyle = { ...baseFontStyle, fontFamily: 'Menlo' };
 const hrefStyle = { ...baseFontStyle, fontWeight: '500', color: '#007AFF' };
+const liStyle = { ...baseFontStyle };
 
 export default class HTMLText extends PureComponent {
   _mounted: boolean;
@@ -39,6 +40,7 @@ export default class HTMLText extends PureComponent {
       pre: codeStyle,
       code: codeStyle,
       a: hrefStyle,
+      li: liStyle,
     }),
   };
 
@@ -100,8 +102,7 @@ export default class HTMLText extends PureComponent {
           <Text
             key={index}
             style={parent ? this.props.styles[parent.name] : null}
-            {...this.props.textProps}
-          >
+            {...this.props.textProps}>
             {entities.decodeHTML(node.data)}
           </Text>
         );
@@ -152,7 +153,19 @@ export default class HTMLText extends PureComponent {
           );
         }
 
-        console.tron.log(node);
+        if (node.name === 'li') {
+          return (
+            <Text
+              key={index}
+              style={this.props.styles.li}
+              {...this.props.textProps}>
+              {'\n'}
+              {'•'} {this._domToElement(node.children, node)}
+              {index === list.length - 1 && '\n'}
+            </Text>
+          );
+        }
+
         return (
           <Text
             key={index}
@@ -164,8 +177,7 @@ export default class HTMLText extends PureComponent {
                 ? this.props.styles.p
                 : null
             }
-            {...this.props.textProps}
-          >
+            {...this.props.textProps}>
             {this._domToElement(node.children, node)}
           </Text>
         );
