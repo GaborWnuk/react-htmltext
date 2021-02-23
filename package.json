@@ -28,7 +28,6 @@
     "flow-bin": "^0.41.0",
     "jest": "^19.0.2",
     "jest-cli": "^19.0.2",
-    "react-test-renderer": "~15.4.0"
   },
   "jest": {
     "preset": "react-native",
