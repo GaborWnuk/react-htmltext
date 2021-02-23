@@ -1,6 +1,6 @@
 {
   "name": "react-htmltext",
-  "version": "0.40.2",
+  "version": "0.40.3",
   "keywords": [
     "react",
     "html",
@@ -27,7 +27,7 @@
     "babel-preset-react-native-stage-0": "^1.0.1",
     "flow-bin": "^0.41.0",
     "jest": "^19.0.2",
-    "jest-cli": "^19.0.2",
+    "jest-cli": "^19.0.2"
   },
   "jest": {
     "preset": "react-native",
